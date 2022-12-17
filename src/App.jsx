@@ -1,10 +1,14 @@
 import "./App.css";
-import Sidebar from "./components/Sidebar";
+import Channels from "./components/Channels";
+import Chat from "./components/Chat";
 
 function App() {
   return (
     <>
-      <Sidebar />
+      <div className="flex min-h-screen w-full justify-center bg-neutral-700">
+        <Channels />
+        <Chat />
+      </div>
     </>
   );
 }
