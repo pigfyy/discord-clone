@@ -1,4 +1,5 @@
 import { BsPlusLg } from "react-icons/bs";
+import { RiLogoutBoxRLine } from "react-icons/ri";
 import { IconContext } from "react-icons";
 import { v4 as uuid } from "uuid";
 
@@ -52,23 +53,57 @@ export default () => {
   });
 
   return (
-    <div className="flex w-[232px] flex-col bg-neutral-800">
-      <div className="flex w-full items-center justify-between gap-[14px] px-3 pt-[6px] pr-4">
-        <span className="text-xs font-semibold uppercase text-neutral-300">
-          Direct Messages
-        </span>
-        <button>
-          <IconContext.Provider
-            value={{
-              color: "white",
-              size: "10px",
-            }}
-          >
-            <BsPlusLg />
-          </IconContext.Provider>
-        </button>
-      </div>
-      <ul className="flex flex-col gap-[2px] py-1.5">{users}</ul>
+    <div className="flex w-[240px] min-w-[240px] flex-col justify-between bg-neutral-800">
+      <section>
+        <div className="flex w-full items-center justify-between gap-[14px] px-3 pt-[6px] pr-4">
+          <span className="text-xs font-semibold uppercase text-neutral-300">
+            Direct Messages
+          </span>
+          <button>
+            <IconContext.Provider
+              value={{
+                color: "white",
+                size: "10px",
+              }}
+            >
+              <BsPlusLg />
+            </IconContext.Provider>
+          </button>
+        </div>
+        <ul className="flex flex-col gap-[2px] py-1.5">{users}</ul>
+      </section>
+      <section className="flex flex-col gap-[2px] py-1.5">
+        <div className="flex items-center justify-between px-1.5">
+          <button className="flex w-full basis-3/4 items-center gap-[14px] rounded-[4px] hover:bg-neutral-500">
+            <div className="flex gap-2 rounded-[4px] p-1">
+              <div className="h-8 w-8 overflow-hidden rounded-full">
+                <img
+                  src="https://cdn.discordapp.com/avatars/368167875740958721/36a8b24e792f03e2c0d037c9e1016600.png?size=4096"
+                  alt=""
+                />
+              </div>
+              <div className="flex flex-col items-start">
+                <span className="text-[14px] font-semibold leading-[18px] text-neutral-100">
+                  PIGFY
+                </span>
+                <span className="text-xs font-normal leading-[13px] text-neutral-175">
+                  #3243
+                </span>
+              </div>
+            </div>
+          </button>
+          <button>
+            <IconContext.Provider
+              value={{
+                color: "red",
+                size: "20px",
+              }}
+            >
+              <RiLogoutBoxRLine />
+            </IconContext.Provider>
+          </button>
+        </div>
+      </section>
     </div>
   );
 };
