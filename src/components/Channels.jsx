@@ -2,6 +2,7 @@ import { BsPlusLg } from "react-icons/bs";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { IconContext } from "react-icons";
 import { v4 as uuid } from "uuid";
+import { auth } from "../firebase";
 
 export default () => {
   const list = [
@@ -52,6 +53,10 @@ export default () => {
     );
   });
 
+  const logUserOut = () => {
+    auth.signOut();
+  };
+
   return (
     <div className="flex w-[240px] min-w-[240px] flex-col justify-between bg-neutral-800">
       <section>
@@ -92,7 +97,7 @@ export default () => {
               </div>
             </div>
           </button>
-          <button>
+          <button onClick={logUserOut}>
             <IconContext.Provider
               value={{
                 color: "red",

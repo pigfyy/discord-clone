@@ -71,17 +71,17 @@ export default () => {
               username: "CAMICSC",
               pfp: "https://cdn.discordapp.com/avatars/366070970139672577/3d7c731434c0529f78fba09e1e4a5ff4.png?size=4096",
               time: "Today at 11:52 AM",
-              message: [{ text: "HIIII" }, { text: "ure so cool" }],
+              message: [{ text: "hi" }, { text: "hows your day" }],
             })}
             {message({
               username: "PIGFY",
               pfp: "https://cdn.discordapp.com/avatars/368167875740958721/36a8b24e792f03e2c0d037c9e1016600.png?size=4096",
               time: "Today at 11:53 AM",
               message: [
-                { text: "heyyy" },
-                { text: "ik i da coolest" },
-                { text: "and u da doggiest" },
-                { text: "u wish you were the cattiest but ure not :C" },
+                { text: "mines great" },
+                { text: "wby" },
+                { text: "hows the project been" },
+                { text: "place holder text" },
               ],
             })}
           </ul>

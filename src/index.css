@@ -9,12 +9,16 @@
   h4,
   p,
   span {
-    font-family: 'Noto Sans', sans-serif;
+    font-family: "gg sans", "Noto Sans", sans-serif;
   }
 }
 
 @layer components {
   .sidebar-icon {
     @apply w-12 h-12 bg-neutral-700 grid rounded-3xl place-items-center hover:rounded-2xl hover:bg-primary-400 transition-all;
+  }
+
+  .test {
+    color: hsl(216, 4%, 74%);
   }
 }
