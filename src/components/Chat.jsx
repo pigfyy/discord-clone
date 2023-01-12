@@ -1,6 +1,9 @@
 import { FaAt } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { useState } from "react";
+import { auth } from "../firebase.js";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { v4 as uuid } from "uuid";
 
 export default () => {
   const [input, setInput] = useState("");
@@ -30,7 +33,7 @@ export default () => {
             <ul>
               {message.map((msg) => {
                 return (
-                  <li>
+                  <li key={uuid()}>
                     <p className="text-base font-normal text-neutral-150">
                       {msg.text}
                     </p>
@@ -42,6 +45,19 @@ export default () => {
         </div>
       </li>
     );
+  };
+
+  const [user] = useAuthState(auth);
+
+  // TEMPORARY
+  const getTime = () => {
+    const date = new Date();
+    const hours = date.getHours();
+    const hours12 = hours > 12 ? hours - 12 : hours;
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    const time = `Today at ${hours12}:${minutes} ${ampm}`;
+    return time;
   };
 
   return (
@@ -68,15 +84,15 @@ export default () => {
         <div className="h-full overflow-y-scroll px-3">
           <ul className="flex flex-col gap-3.5 py-3">
             {message({
-              username: "CAMICSC",
-              pfp: "https://cdn.discordapp.com/avatars/366070970139672577/3d7c731434c0529f78fba09e1e4a5ff4.png?size=4096",
-              time: "Today at 11:52 AM",
+              username: "User 1",
+              pfp: "https://firebasestorage.googleapis.com/v0/b/discord-clone-cae29.appspot.com/o/characterPfps%2F1.png?alt=media&token=6f6ceb75-e952-41c9-9902-5592fdbbc321",
+              time: "Today at 12:00 AM",
               message: [{ text: "hi" }, { text: "hows your day" }],
             })}
             {message({
-              username: "PIGFY",
-              pfp: "https://cdn.discordapp.com/avatars/368167875740958721/36a8b24e792f03e2c0d037c9e1016600.png?size=4096",
-              time: "Today at 11:53 AM",
+              username: user.displayName,
+              pfp: user.photoURL,
+              time: getTime(),
               message: [
                 { text: "mines great" },
                 { text: "wby" },
