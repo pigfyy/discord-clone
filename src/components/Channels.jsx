@@ -8,9 +8,14 @@ import { useAuthState } from "react-firebase-hooks/auth";
 export default () => {
   const list = [
     {
+      name: "All Chat",
+      pfp: "https://firebasestorage.googleapis.com/v0/b/discord-clone-cae29.appspot.com/o/groupChatIcons%2Fblue.png?alt=media&token=a8dd8c96-b4a6-438e-b5c4-3a931561c707",
+      isSelected: true,
+    },
+    {
       name: "User 1",
       pfp: "https://firebasestorage.googleapis.com/v0/b/discord-clone-cae29.appspot.com/o/characterPfps%2F1.png?alt=media&token=6f6ceb75-e952-41c9-9902-5592fdbbc321",
-      isSelected: true,
+      isSelected: false,
     },
     {
       name: "User 2",
