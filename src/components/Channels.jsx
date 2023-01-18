@@ -12,26 +12,6 @@ export default () => {
       pfp: "https://firebasestorage.googleapis.com/v0/b/discord-clone-cae29.appspot.com/o/groupChatIcons%2Fblue.png?alt=media&token=a8dd8c96-b4a6-438e-b5c4-3a931561c707",
       isSelected: true,
     },
-    {
-      name: "User 1",
-      pfp: "https://firebasestorage.googleapis.com/v0/b/discord-clone-cae29.appspot.com/o/characterPfps%2F1.png?alt=media&token=6f6ceb75-e952-41c9-9902-5592fdbbc321",
-      isSelected: false,
-    },
-    {
-      name: "User 2",
-      pfp: "https://firebasestorage.googleapis.com/v0/b/discord-clone-cae29.appspot.com/o/characterPfps%2F2.png?alt=media&token=21b625bc-3167-4059-b3b9-e2e6d2ff049b",
-      isSelected: false,
-    },
-    {
-      name: "User 3",
-      pfp: "https://firebasestorage.googleapis.com/v0/b/discord-clone-cae29.appspot.com/o/characterPfps%2F3.png?alt=media&token=a1238c6d-f208-439a-9032-794dd0f7aa97",
-      isSelected: false,
-    },
-    {
-      name: "User 4",
-      pfp: "https://firebasestorage.googleapis.com/v0/b/discord-clone-cae29.appspot.com/o/characterPfps%2F4.png?alt=media&token=f722e2a5-f3f2-46ad-b310-937d8852b8c5",
-      isSelected: false,
-    },
   ];
 
   const users = list.map((user) => {
