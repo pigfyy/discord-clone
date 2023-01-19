@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { db } from "../../firebase.js";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import React from "react";
 
 function Messages() {
-  // to determine messages
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -20,9 +20,10 @@ function Messages() {
 
   const messageView = messages.map((message) => {
     const msg = (messageInfo) => {
-      const { username, pfp, time, message, isNewStack } = messageInfo;
+      const { username, pfp, time, message, isNewStack, uid } = messageInfo;
+
       return (
-        <>
+        <React.Fragment key={uid}>
           {isNewStack ? (
             <li className="mt-3 flex flex-col gap-1 first:mt-0 last:mb-1">
               <div className="flex">
@@ -51,7 +52,7 @@ function Messages() {
               </p>
             </li>
           )}
-        </>
+        </React.Fragment>
       );
     };
 
@@ -92,7 +93,6 @@ function Messages() {
       }
       return dateString;
     })();
-
     const isNewStack = (() => {
       const prevMessage = messages[messages.indexOf(message) - 1];
       if (prevMessage) {
@@ -115,6 +115,7 @@ function Messages() {
       time: dateString,
       message: message.text,
       isNewStack: isNewStack,
+      uid: message.uid,
     });
   });
 

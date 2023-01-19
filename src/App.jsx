@@ -1,5 +1,5 @@
 import "./App.css";
-import Channels from "./components/Channels";
+import Channels from "./components/channels/Channels";
 import Chat from "./components/chat/Chat";
 import LogIn from "./components/login/LogIn";
 import { auth } from "./firebase.js";
