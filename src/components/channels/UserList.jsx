@@ -3,22 +3,31 @@ import { useEffect, useState } from "react";
 import { db, auth } from "../../firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, query, onSnapshot, doc, getDoc } from "firebase/firestore";
+import useStore from "../../store.js";
 
 function UserList() {
-  const [conversationIds, setConversationIds] = useState([]);
+  //
+  // const [conversationIds, setConversationIds] = useState([]);
   const [conversations, setConversations] = useState([]);
+  //
   const [user] = useAuthState(auth);
 
+  const {
+    userConversationIds,
+    setUserConversationIds,
+    userConversationsData,
+    setUserConversationsData,
+  } = useStore();
+
   useEffect(() => {
-    const q1 = query(collection(db, `users/${user.uid}/conversations`));
     const conversationIds = [];
+    const q1 = query(collection(db, `users/${user.uid}/conversations`));
     const unsubscribe = onSnapshot(q1, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        conversationIds.push(doc.id);
+        conversationIds.push(doc.id.replace(/\s/g, ""));
       });
+      setUserConversationIds([...conversationIds]);
     });
-
-    setConversationIds(conversationIds);
 
     return () => {
       unsubscribe();
@@ -26,8 +35,7 @@ function UserList() {
   }, []);
 
   useEffect(() => {
-    const promises = conversationIds.map((id) => {
-      id = id.replace(/\s/g, "");
+    const promises = userConversationIds.map((id) => {
       const getConversation = async () => {
         const docRef = doc(db, `conversations/${id}`);
         const docSnap = await getDoc(docRef);
@@ -43,7 +51,7 @@ function UserList() {
 
     Promise.all(promises)
       .then((conversations) => {
-        setConversations(conversations.filter((c) => c !== null));
+        setUserConversationsData(conversations.filter((c) => c !== null));
       })
       .catch((error) => {
         console.log(error);
@@ -52,9 +60,9 @@ function UserList() {
     return () => {
       setConversations([]);
     };
-  }, [conversationIds]);
+  }, [userConversationIds]);
 
-  const users = conversations.map((conversation) => {
+  const users = userConversationsData.map((conversation) => {
     return (
       <li className="px-1.5" key={crypto.randomUUID()}>
         <button
