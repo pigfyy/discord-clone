@@ -1,15 +1,11 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { db, auth } from "../../firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, query, onSnapshot, doc, getDoc } from "firebase/firestore";
 import useStore from "../../store.js";
 
 function UserList() {
-  //
-  // const [conversationIds, setConversationIds] = useState([]);
-  const [conversations, setConversations] = useState([]);
-  //
   const [user] = useAuthState(auth);
 
   const {
@@ -58,7 +54,7 @@ function UserList() {
       });
 
     return () => {
-      setConversations([]);
+      setUserConversationsData([]);
     };
   }, [userConversationIds]);
 
