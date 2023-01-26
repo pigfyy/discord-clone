@@ -1,6 +1,4 @@
 import React from "react";
-import { signInWithRedirect, GoogleAuthProvider } from "firebase/auth";
-import { auth } from "../../firebase";
 
 function Button() {
   const logUserIn = () => {

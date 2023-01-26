@@ -1,15 +1,14 @@
 import React from "react";
 import { IconContext } from "react-icons";
 import { RiLogoutBoxRLine } from "react-icons/ri";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase";
 
 function Footer() {
-  const logUserOut = () => {
-    auth.signOut();
-  };
+  const logUserOut = () => {};
 
-  const [user] = useAuthState(auth);
+  const user = {
+    displayName: "John Doe",
+    photoURL: "https://i.imgur.com/0X8rX7A.jpg",
+  };
 
   return (
     <section className="flex flex-col gap-[2px] py-1.5">

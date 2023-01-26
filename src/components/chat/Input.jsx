@@ -1,7 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { auth, db } from "../../firebase.js";
-import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 
 function Input() {

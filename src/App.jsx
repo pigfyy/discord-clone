@@ -2,11 +2,10 @@ import "./App.css";
 import Channels from "./components/channels/Channels";
 import Chat from "./components/chat/Chat";
 import LogIn from "./components/login/LogIn";
-import { auth } from "./firebase.js";
-import { useAuthState } from "react-firebase-hooks/auth";
 
 function App() {
-  const [user] = useAuthState(auth);
+  const user = "3";
+
   return (
     <>
       <div className="flex min-h-screen w-full justify-center bg-neutral-700">
