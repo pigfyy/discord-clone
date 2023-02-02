@@ -1,13 +1,13 @@
-import React from "react";
+import addNewUser from "../../utils/addNewUser";
+
+import { auth } from "../../firebase";
 import {
   signInWithPopup,
   GoogleAuthProvider,
   getAdditionalUserInfo,
 } from "firebase/auth";
-import { auth } from "../../firebase";
-import addNewUser from "../../utils/addNewUser";
 
-function Button() {
+export default () => {
   const logUserIn = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
@@ -34,6 +34,4 @@ function Button() {
       </div>
     </button>
   );
-}
-
-export default Button;
+};

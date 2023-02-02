@@ -1,9 +1,9 @@
-import React from "react";
 import { useState } from "react";
+
 import { auth, db } from "../../firebase.js";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 
-function Input() {
+export default () => {
   const [input, setInput] = useState("");
 
   const handleSubmit = async (e) => {
@@ -33,6 +33,4 @@ function Input() {
       </div>
     </form>
   );
-}
-
-export default Input;
+};

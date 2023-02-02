@@ -17,8 +17,13 @@ module.exports = {
       "neutral-900": "hsl(216, 7%, 14%)",
       "neutral-950": "hsl(225, 8%, 10%)",
       "primary-400": "hsl(235, 86%, 65%)",
+      "green-400": "hsl(139, 47%, 33%)",
     },
-    extend: {},
+    extend: {
+      boxShadow: {
+        inset: "inset 0px -16px 1px -14px rgba(0,0,0,0.3)",
+      },
+    },
   },
   plugins: [],
 };

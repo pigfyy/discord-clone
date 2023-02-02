@@ -1,12 +1,13 @@
-import React from "react";
+import UserListItem from "./UserListItem.jsx";
+
 import { useEffect } from "react";
+import useStore from "../../store.js";
+
 import { db, auth } from "../../firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, query, onSnapshot, doc, getDoc } from "firebase/firestore";
-import useStore from "../../store.js";
-import UserListItem from "./UserListItem.jsx";
 
-function UserList() {
+export default () => {
   const [user] = useAuthState(auth);
 
   const {
@@ -71,6 +72,4 @@ function UserList() {
   });
 
   return <ul className="flex flex-col gap-[2px] py-1.5">{users}</ul>;
-}
-
-export default UserList;
+};

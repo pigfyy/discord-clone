@@ -1,7 +1,7 @@
 import { IconContext } from "react-icons";
 import { BsPlusLg } from "react-icons/bs";
 
-function Header() {
+export default () => {
   return (
     <header>
       <div className="flex w-full items-center justify-between gap-[14px] px-3 pt-[6px] pr-4">
@@ -21,6 +21,4 @@ function Header() {
       </div>
     </header>
   );
-}
-
-export default Header;
+};

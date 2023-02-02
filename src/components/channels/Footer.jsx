@@ -1,10 +1,10 @@
-import React from "react";
 import { IconContext } from "react-icons";
 import { RiLogoutBoxRLine } from "react-icons/ri";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase";
 
-function Footer() {
+import { auth } from "../../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+export default () => {
   const logUserOut = () => {
     auth.signOut();
   };
@@ -42,6 +42,4 @@ function Footer() {
       </div>
     </section>
   );
-}
-
-export default Footer;
+};

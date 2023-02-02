@@ -1,7 +1,8 @@
-import "./App.css";
+import LogIn from "./components/login/LogIn";
 import Channels from "./components/channels/Channels";
 import Chat from "./components/chat/Chat";
-import LogIn from "./components/login/LogIn";
+import Friends from "./components/friends/Friends";
+
 import { auth } from "./firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -15,7 +16,7 @@ function App() {
         ) : (
           <>
             <Channels />
-            <Chat />
+            {true ? <Chat /> : <Friends />}
           </>
         )}
       </div>

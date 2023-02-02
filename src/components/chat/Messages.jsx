@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
+
 import { db } from "../../firebase.js";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
-import React from "react";
 
-function Messages() {
+export default () => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -138,6 +138,4 @@ function Messages() {
       {messageView}
     </ul>
   );
-}
-
-export default Messages;
+};
