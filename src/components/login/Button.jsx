@@ -1,11 +1,22 @@
 import React from "react";
-import { signInWithRedirect, GoogleAuthProvider } from "firebase/auth";
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  getAdditionalUserInfo,
+} from "firebase/auth";
 import { auth } from "../../firebase";
+import addNewUser from "../../utils/addNewUser";
 
 function Button() {
   const logUserIn = () => {
     const provider = new GoogleAuthProvider();
-    signInWithRedirect(auth, provider);
+    signInWithPopup(auth, provider)
+      .then(async (result) => {
+        if (getAdditionalUserInfo(result).isNewUser) addNewUser();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
