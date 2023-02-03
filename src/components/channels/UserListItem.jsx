@@ -40,7 +40,7 @@ export default (props) => {
   return (
     <li className="px-1.5">
       <button
-        className={`flex w-full items-center gap-[14px] rounded-[4px] p-1.5 ${
+        className={`flex w-full items-center gap-3 rounded-[4px] p-1.5 ${
           false ? "bg-neutral-600" : "group hover:bg-neutral-600"
         }`}
       >

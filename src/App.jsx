@@ -16,7 +16,7 @@ function App() {
         ) : (
           <>
             <Channels />
-            {true ? <Chat /> : <Friends />}
+            {false ? <Chat /> : <Friends />}
           </>
         )}
       </div>
