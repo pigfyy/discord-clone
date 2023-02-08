@@ -5,7 +5,7 @@ import { useConversationsStore } from "../../store.js";
 
 import { db, auth } from "../../firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { collection, query, onSnapshot, doc, getDoc } from "firebase/firestore";
+import { collection, query, onSnapshot, doc, where } from "firebase/firestore";
 
 export default () => {
   const [user] = useAuthState(auth);
@@ -35,35 +35,20 @@ export default () => {
 
   // grabs all users conversations data from ids
   useEffect(() => {
-    const promises = userConversationIds.map((id) => {
-      const getConversation = async () => {
-        const docRef = doc(db, `conversations/${id}`);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          return {
-            ...docSnap.data(),
-            participantIDs: docSnap
-              .data()
-              .participantIDs.map((id) => id.replace(/\s/g, "")),
-          };
-        } else {
-          console.log(`No such conversation! Conversation ID: ${id}`);
-          return null;
-        }
-      };
-      return getConversation();
+    const q = query(
+      collection(db, "conversations"),
+      where("participantIDs", "array-contains-any", [user.uid, "everyone"])
+    );
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      const conversationsData = [];
+      querySnapshot.forEach((doc) => {
+        conversationsData.push(doc.data());
+      });
+      setUserConversationsData(conversationsData);
     });
 
-    Promise.all(promises)
-      .then((conversations) => {
-        setUserConversationsData(conversations.filter((c) => c !== null));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
     return () => {
-      setUserConversationsData([]);
+      unsub();
     };
   }, [userConversationIds]);
 

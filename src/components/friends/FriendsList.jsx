@@ -5,7 +5,7 @@ import { useFriendsStore } from "../../store";
 
 import { db, auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { collection, query, onSnapshot } from "firebase/firestore";
+import { collection, query, onSnapshot, doc } from "firebase/firestore";
 
 export default () => {
   const { userFriendIds, setUserFriendIds } = useFriendsStore();
@@ -14,7 +14,7 @@ export default () => {
 
   useEffect(() => {
     const q = query(collection(db, "users", user.uid, "friends"));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    const unsub = onSnapshot(q, (querySnapshot) => {
       const userFriendsIds = [];
       querySnapshot.forEach((doc) => {
         userFriendsIds.push(doc.id);
@@ -22,7 +22,7 @@ export default () => {
       setUserFriendIds(userFriendsIds);
     });
 
-    return unsubscribe;
+    return unsub;
   }, []);
 
   const friends = userFriendIds.map((friendId) => {
