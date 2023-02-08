@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { db, auth } from "../../firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 
 export default (props) => {
   const [user] = useAuthState(auth);
@@ -12,29 +12,21 @@ export default (props) => {
   const { groupName, groupPfp, isDm, participantIDs } = props.data;
 
   useEffect(() => {
+    let unsub;
     if (!isDm) {
       setData({ name: groupName, pfp: groupPfp });
     } else {
       const receivingUser = participantIDs.filter((id) => id !== user.uid)[0];
-
-      const getUser = async () => {
-        const docRef = doc(db, "users", receivingUser);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          return {
-            name: docSnap.data().displayName,
-            pfp: docSnap.data().photoURL,
-          };
-        } else {
-          console.log(`No such user! User ID: ${receivingUser}`);
-          return null;
-        }
-      };
-
-      getUser().then((user) => {
-        setData(user);
+      unsub = onSnapshot(doc(db, "users", receivingUser), (doc) => {
+        setData({ name: doc.data().displayName, pfp: doc.data().photoURL });
       });
     }
+
+    return () => {
+      if (unsub) {
+        unsub();
+      }
+    };
   }, []);
 
   return (

@@ -1,7 +1,7 @@
 import friendsIcon from "../../assets/imgs/friendsIcon.svg";
 
 const VerticalDivider = () => {
-  return <div className="w-[1px] h-6 bg-neutral-450"></div>;
+  return <div className="h-6 w-[1px] bg-neutral-450"></div>;
 };
 
 const Buttons = () => {
@@ -9,7 +9,7 @@ const Buttons = () => {
     const isAddFriend = button === "Add Friend";
     return (
       <button
-        className={`flex items-center gap-4 px-[8px] py-[2px] rounded ${
+        className={`flex items-center gap-4 rounded px-[8px] py-[2px] ${
           !isAddFriend ? "hover:bg-neutral-500" : "bg-green-400"
         }`}
         key={crypto.randomUUID()}
@@ -30,8 +30,8 @@ const Buttons = () => {
 
 export default () => {
   return (
-    <header className="flex h-12 min-h-[3rem] items-center shadow-inset gap-4">
-      <div className="flex gap-2 ml-3">
+    <header className="flex h-12 min-h-[3rem] items-center gap-4 shadow-inset">
+      <div className="ml-3 flex gap-2">
         <div className="px-1">
           <img src={friendsIcon} alt="" />
         </div>

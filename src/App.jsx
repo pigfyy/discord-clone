@@ -10,7 +10,7 @@ function App() {
   const [user] = useAuthState(auth);
   return (
     <>
-      <div className="flex min-h-screen w-full justify-center bg-neutral-700">
+      <div className="flex min-h-screen w-full bg-neutral-700">
         {!user ? (
           <LogIn />
         ) : (

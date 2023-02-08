@@ -8,7 +8,9 @@
   h3,
   h4,
   p,
-  span {
+  span,
+  input,
+  button {
     font-family: "gg sans", "Noto Sans", sans-serif;
   }
 }

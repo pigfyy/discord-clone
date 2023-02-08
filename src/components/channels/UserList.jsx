@@ -1,7 +1,7 @@
 import UserListItem from "./UserListItem.jsx";
 
 import { useEffect } from "react";
-import useStore from "../../store.js";
+import { useConversationsStore } from "../../store.js";
 
 import { db, auth } from "../../firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -15,7 +15,7 @@ export default () => {
     setUserConversationIds,
     userConversationsData,
     setUserConversationsData,
-  } = useStore();
+  } = useConversationsStore();
 
   // grabs all users conversation ids
   useEffect(() => {
@@ -25,7 +25,7 @@ export default () => {
       querySnapshot.forEach((doc) => {
         conversationIds.push(doc.id.replace(/\s/g, ""));
       });
-      setUserConversationIds([...conversationIds]);
+      setUserConversationIds(conversationIds);
     });
 
     return () => {

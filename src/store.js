@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
-const useStore = create(
+const useConversationsStore = create(
   devtools((set, get) => ({
     userConversationIds: [],
     userConversationsData: [],
@@ -12,4 +12,11 @@ const useStore = create(
   }))
 );
 
-export default useStore;
+const useFriendsStore = create(
+  devtools((set, get) => ({
+    userFriendIds: [],
+    setUserFriendIds: (ids) => set((state) => ({ userFriendIds: ids })),
+  }))
+);
+
+export { useConversationsStore, useFriendsStore };
