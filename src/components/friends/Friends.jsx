@@ -1,15 +1,19 @@
 import Header from "./Header";
-import FriendsList from "./FriendsList";
+import FriendsList from "./friendsList/FriendsList";
 import AddFriend from "./AddFriend";
 
+import { useFriendsStore } from "../../store";
+
 export default () => {
+  const { currentPage } = useFriendsStore();
+
   return (
     <div className="flex max-h-screen w-full flex-col">
       <Header />
-      {true ? (
+      {currentPage !== "Add Friend" ? (
         <div className="my-4">
           <span className="mx-[30px] text-xs font-semibold uppercase text-neutral-175">
-            Online — 15
+            {currentPage}
           </span>
           <FriendsList />
         </div>
