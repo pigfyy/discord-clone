@@ -15,7 +15,9 @@ const useConversationsStore = create(
 const useFriendsStore = create(
   devtools((set, get) => ({
     userFriendIds: [],
+    currentPage: "Online",
     setUserFriendIds: (ids) => set((state) => ({ userFriendIds: ids })),
+    setCurrentPage: (page) => set((state) => ({ currentPage: page })),
   }))
 );
 

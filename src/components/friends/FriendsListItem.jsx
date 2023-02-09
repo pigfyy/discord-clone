@@ -8,14 +8,18 @@ import { onSnapshot, doc } from "firebase/firestore";
 
 export default (props) => {
   const [data, setData] = useState({ name: "", pfp: "" });
+  const [isShow, setIsShow] = useState(true);
 
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "users", props.friendId), (doc) => {
+      doc.data().status !== "online" ? setIsShow(false) : setIsShow(true);
       setData({ name: doc.data().displayName, pfp: doc.data().photoURL });
     });
 
     return unsub;
   }, []);
+
+  if (!isShow) return null;
 
   return (
     <li className="flex w-full rounded-[8px] px-[10px] hover:bg-neutral-500">

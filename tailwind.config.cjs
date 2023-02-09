@@ -19,6 +19,7 @@ module.exports = {
       "neutral-950": "hsl(225, 8%, 10%)",
       "primary-300": "hsl(197, 100%, 48%)",
       "primary-400": "hsl(235, 86%, 65%)",
+      "green-200": "hsl(139, 52%, 52%)",
       "green-400": "hsl(139, 47%, 33%)",
     },
     extend: {
