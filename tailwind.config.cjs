@@ -21,6 +21,8 @@ module.exports = {
       "primary-400": "hsl(235, 86%, 65%)",
       "green-200": "hsl(139, 52%, 52%)",
       "green-400": "hsl(139, 47%, 33%)",
+      "red-500": "hsl(359, 83%, 59%)",
+      "red-600": "hsl(359, 67%, 54%)",
     },
     extend: {
       boxShadow: {

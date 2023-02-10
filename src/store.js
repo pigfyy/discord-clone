@@ -2,23 +2,34 @@ import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
 const useConversationsStore = create(
-  devtools((set, get) => ({
+  devtools((set) => ({
     userConversationIds: [],
     userConversationsData: [],
-    setUserConversationIds: (ids) =>
-      set((state) => ({ userConversationIds: ids })),
+    setUserConversationIds: (ids) => set(() => ({ userConversationIds: ids })),
     setUserConversationsData: (data) =>
-      set((state) => ({ userConversationsData: data })),
+      set(() => ({ userConversationsData: data })),
   }))
 );
 
 const useFriendsStore = create(
-  devtools((set, get) => ({
+  devtools((set) => ({
     userFriendIds: [],
     currentPage: "Online",
-    setUserFriendIds: (ids) => set((state) => ({ userFriendIds: ids })),
-    setCurrentPage: (page) => set((state) => ({ currentPage: page })),
+    setUserFriendIds: (ids) => set(() => ({ userFriendIds: ids })),
+    setCurrentPage: (page) => set(() => ({ currentPage: page })),
   }))
 );
 
-export { useConversationsStore, useFriendsStore };
+const useMenuStore = create(
+  devtools((set) => ({
+    menuOpen: false,
+    menuXY: { x: 0, y: 0 },
+    menuType: "",
+    setMenuOpen: () => set(() => ({ menuOpen: true })),
+    setMenuClosed: () => set(() => ({ menuOpen: false })),
+    setMenuXY: (x, y) => set(() => ({ menuXY: { x, y } })),
+    setMenuType: (type) => set(() => ({ menuType: type })),
+  }))
+);
+
+export { useConversationsStore, useFriendsStore, useMenuStore };
