@@ -1,6 +1,6 @@
 import AddFriendInput from "./AddFriendInput";
 
-import wumpus from "../../assets/imgs/wumpusWaitingOnFriends.svg";
+import wumpus from "../../../assets/imgs/wumpusWaitingOnFriends.svg";
 
 export default () => {
   return (

@@ -1,15 +1,30 @@
 import { IconContext } from "react-icons";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 
-import { auth } from "../../firebase";
+import { useEffect, useState } from "react";
+
+import { auth, db } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { onSnapshot, doc } from "firebase/firestore";
 
 export default () => {
+  const [user] = useAuthState(auth);
+
+  const [tag, setTag] = useState("");
+
   const logUserOut = () => {
     auth.signOut();
   };
 
-  const [user] = useAuthState(auth);
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, "users", user.uid), (doc) => {
+      setTag(doc.data().tag);
+    });
+
+    return () => {
+      unsub();
+    };
+  }, []);
 
   return (
     <section className="flex flex-col gap-[2px] py-1.5">
@@ -24,7 +39,7 @@ export default () => {
                 {user.displayName}
               </span>
               <span className="text-xs font-normal leading-[13px] text-neutral-175">
-                #0000
+                {`#${tag}`}
               </span>
             </div>
           </div>

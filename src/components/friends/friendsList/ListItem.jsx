@@ -23,6 +23,7 @@ export default (props) => {
         name: doc.data().displayName,
         pfp: doc.data().photoURL,
         status: doc.data().status,
+        id: doc.id,
       });
     });
 
@@ -55,7 +56,7 @@ export default (props) => {
             </span>
           </div>
         </div>
-        <Buttons pending={pendingStatus} key={crypto.randomUUID()} />
+        <Buttons pending={pendingStatus} id={data.id} key={data.id} />
       </button>
     </li>
   );

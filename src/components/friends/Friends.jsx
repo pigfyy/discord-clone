@@ -1,6 +1,6 @@
 import Header from "./Header";
 import FriendsList from "./friendsList/FriendsList";
-import AddFriend from "./AddFriend";
+import AddFriend from "./addFriend/AddFriend";
 
 import { useFriendsStore } from "../../store";
 
