@@ -4,15 +4,24 @@ import Footer from "./Footer";
 
 import friendsIcon from "../../assets/imgs/friendsIcon.svg";
 
+import { useAppStore } from "../../store";
+
 const FriendsItem = () => {
+  const { setCurrentSection } = useAppStore();
+
   return (
-    <div className="px-1.5 my-2">
+    <div
+      className="my-2 px-1.5"
+      onClick={() => {
+        setCurrentSection("friends");
+      }}
+    >
       <button
         className={`flex w-full items-center gap-[14px] rounded-[4px] p-1.5 ${
           false ? "bg-neutral-600" : "group hover:bg-neutral-600"
         }`}
       >
-        <div className="h-8 w-8 overflow-hidden grid place-items-center">
+        <div className="grid h-8 w-8 place-items-center overflow-hidden">
           <img src={friendsIcon} alt="" />
         </div>
         <span

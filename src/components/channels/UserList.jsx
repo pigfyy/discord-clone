@@ -42,7 +42,7 @@ export default () => {
     const unsub = onSnapshot(q, (querySnapshot) => {
       const conversationsData = [];
       querySnapshot.forEach((doc) => {
-        conversationsData.push(doc.data());
+        conversationsData.push({ ...doc.data(), id: doc.id });
       });
       setUserConversationsData(conversationsData);
     });

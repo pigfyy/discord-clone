@@ -1,15 +1,21 @@
 import Buttons from "./Buttons";
 
-import { useEffect, useState } from "react";
-import { useFriendsStore } from "../../../store";
+import fetchConversationId from "../../../utils/fetchConversationId";
 
-import { db } from "../../../firebase";
+import { useEffect, useState } from "react";
+import { useFriendsStore, useAppStore } from "../../../store";
+
+import { db, auth } from "../../../firebase";
 import { onSnapshot, doc } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default (props) => {
+  const [user] = useAuthState(auth);
+
   const [data, setData] = useState({ name: "", pfp: "", status: "" });
   const [isShow, setIsShow] = useState(true);
   const { currentPage } = useFriendsStore();
+  const { setCurrentSection, setChatId } = useAppStore();
 
   const friendId = props.friendId.split(" ")[0];
   const pendingStatus = props.friendId.split(" ")[1];
@@ -30,10 +36,22 @@ export default (props) => {
     return unsub;
   }, [currentPage]);
 
+  const handleClick = async () => {
+    if (currentPage === "Online" || currentPage === "All") {
+      const id = await fetchConversationId(user.uid, data.id);
+      if (id === null) return;
+      setChatId(id);
+      setCurrentSection("chat");
+    }
+  };
+
   if (!isShow) return null;
 
   return (
-    <li className="flex w-full rounded-[8px] px-[10px] hover:bg-neutral-500">
+    <li
+      className="flex w-full rounded-[8px] px-[10px] hover:bg-neutral-500"
+      onClick={handleClick}
+    >
       <button className="group flex w-full justify-between border-t-[1px] border-[#4f545c7a] py-[12px] hover:border-[#00000000]">
         <div className="flex gap-3">
           <div className="h-8 w-8 overflow-hidden rounded-full">

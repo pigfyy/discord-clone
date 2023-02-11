@@ -1,13 +1,26 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useAppStore } from "../../store.js";
 
 import { db } from "../../firebase.js";
-import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  where,
+} from "firebase/firestore";
 
 export default () => {
   const [messages, setMessages] = useState([]);
+  const { chatId } = useAppStore();
 
   useEffect(() => {
-    const q = query(collection(db, "messages"), orderBy("timestamp"));
+    console.log("chatId", chatId);
+    const q = query(
+      collection(db, "messages"),
+      orderBy("timestamp"),
+      where("conversationId", "==", chatId)
+    );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let messages = [];
       querySnapshot.forEach((doc) => {
@@ -16,14 +29,14 @@ export default () => {
       setMessages(messages);
     });
     return () => unsubscribe();
-  }, []);
+  }, [chatId]);
 
   const messageView = messages.map((message) => {
     const msg = (messageInfo) => {
-      const { username, pfp, time, message, isNewStack, uid } = messageInfo;
+      const { username, pfp, time, message, isNewStack } = messageInfo;
 
       return (
-        <React.Fragment key={uid}>
+        <React.Fragment key={crypto.randomUUID()}>
           {isNewStack ? (
             <li className="mt-3 flex flex-col gap-1 first:mt-0 last:mb-1">
               <div className="flex">

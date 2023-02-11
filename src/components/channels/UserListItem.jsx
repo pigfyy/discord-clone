@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAppStore } from "../../store.js";
 
 import { db, auth } from "../../firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -8,8 +9,9 @@ export default (props) => {
   const [user] = useAuthState(auth);
 
   const [data, setData] = useState({ name: "", pfp: "" });
+  const { setCurrentSection, setChatId } = useAppStore();
 
-  const { groupName, groupPfp, isDm, participantIDs } = props.data;
+  const { groupName, groupPfp, isDm, participantIDs, id } = props.data;
 
   useEffect(() => {
     let unsub;
@@ -35,6 +37,10 @@ export default (props) => {
         className={`flex w-full items-center gap-3 rounded-[4px] p-1.5 ${
           false ? "bg-neutral-600" : "group hover:bg-neutral-600"
         }`}
+        onClick={() => {
+          setCurrentSection("chat");
+          setChatId(id);
+        }}
       >
         <div className="h-8 w-8 overflow-hidden rounded-full">
           <img src={data.pfp} alt="" />

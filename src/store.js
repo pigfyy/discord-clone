@@ -32,4 +32,13 @@ const useMenuStore = create(
   }))
 );
 
-export { useConversationsStore, useFriendsStore, useMenuStore };
+const useAppStore = create(
+  devtools((set) => ({
+    currentSection: "friends",
+    chatId: "",
+    setCurrentSection: (section) => set(() => ({ currentSection: section })),
+    setChatId: (id) => set(() => ({ chatId: id })),
+  }))
+);
+
+export { useConversationsStore, useFriendsStore, useMenuStore, useAppStore };

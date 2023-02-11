@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useAppStore } from "../../store.js";
 
 import { auth, db } from "../../firebase.js";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 
 export default () => {
   const [input, setInput] = useState("");
+  const { chatId } = useAppStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -12,11 +14,12 @@ export default () => {
     setInput("");
     const { uid, displayName, photoURL } = auth.currentUser;
     await addDoc(collection(db, "messages"), {
+      conversationId: chatId,
       name: displayName,
       pfp: photoURL,
       text: input,
       timestamp: Timestamp.now(),
-      uid: crypto.randomUUID(),
+      userId: uid,
     });
   };
 

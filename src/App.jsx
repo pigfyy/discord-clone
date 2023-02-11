@@ -5,30 +5,16 @@ import Friends from "./components/friends/Friends";
 import FriendsMenuEllipsis from "./components/menus/FriendsMenuEllipsis";
 
 import { useEffect } from "react";
-import { useMenuStore } from "./store";
+import { useMenuStore, useAppStore } from "./store";
 
 import { auth } from "./firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 function App() {
-  const { menuOpen, menuXY, menuType, setMenuClosed } = useMenuStore();
-
   const [user] = useAuthState(auth);
 
-  useEffect(() => {
-    window.addEventListener("click", (e) => {
-      const isOpenMenuBtn =
-        e.target.getAttribute("does-open-menu") === "true" ||
-        e.target.parentElement.getAttribute("does-open-menu") === "true";
-      if (!isOpenMenuBtn) {
-        menuOpen && setMenuClosed();
-      }
-    });
-
-    return () => {
-      window.removeEventListener("click", () => {});
-    };
-  }, []);
+  const { menuOpen, menuXY, menuType } = useMenuStore();
+  const { currentSection } = useAppStore();
 
   return (
     <>
@@ -38,7 +24,8 @@ function App() {
         ) : (
           <>
             <Channels />
-            {false ? <Chat /> : <Friends />}
+            {currentSection === "chat" && <Chat />}
+            {currentSection === "friends" && <Friends />}
           </>
         )}
       </div>

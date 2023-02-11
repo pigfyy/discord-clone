@@ -13,7 +13,6 @@ import {
 import { useFriendsStore, useMenuStore } from "../../../store";
 
 import { useAuthState } from "react-firebase-hooks/auth";
-
 import { auth } from "../../../firebase";
 
 export default (props) => {
@@ -35,6 +34,8 @@ export default (props) => {
       const parts = button.split("/");
       return parts[parts.length - 1].split(".")[0];
     })();
+
+    e.stopPropagation();
 
     const handleCheckmark = () => {
       setAsFriends(user.uid, props.id);
@@ -71,12 +72,12 @@ export default (props) => {
       {list.map((button) => {
         return (
           <div
-            className="grid h-9 w-9 place-items-center rounded-full bg-neutral-800 group-hover:bg-neutral-900"
+            className="grid h-9 w-9 place-items-center rounded-full bg-neutral-800 active:!bg-neutral-490 group-hover:bg-neutral-900"
             onClick={(e) => {
-              handleClick(button, e);
+              button !== chatBox && handleClick(button, e);
             }}
             key={crypto.randomUUID()}
-            does-open-menu="true"
+            does-open-menu={button === ellipsis ? "true" : "false"}
           >
             <img src={button} alt="" />
           </div>
