@@ -15,7 +15,6 @@ export default () => {
   const { chatId } = useAppStore();
 
   useEffect(() => {
-    console.log("chatId", chatId);
     const q = query(
       collection(db, "messages"),
       orderBy("timestamp"),
@@ -38,7 +37,7 @@ export default () => {
       return (
         <React.Fragment key={crypto.randomUUID()}>
           {isNewStack ? (
-            <li className="mt-3 flex flex-col gap-1 first:mt-0 last:mb-1">
+            <li className="mt-[17px] flex flex-col gap-1 first:mt-0 last:mb-1">
               <div className="flex">
                 <div className="mr-3 h-10 w-10 overflow-hidden rounded-full">
                   <img src={pfp} alt="" />
@@ -59,7 +58,7 @@ export default () => {
               </div>
             </li>
           ) : (
-            <li className="ml-[52px]">
+            <li className="ml-[52px] mt-[2px]">
               <p className="text-base font-normal text-neutral-150">
                 {message}
               </p>

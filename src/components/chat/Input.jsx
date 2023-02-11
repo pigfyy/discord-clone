@@ -1,12 +1,59 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppStore } from "../../store.js";
 
+import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../../firebase.js";
-import { addDoc, collection, Timestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  onSnapshot,
+  Timestamp,
+} from "firebase/firestore";
 
 export default () => {
+  const [user] = useAuthState(auth);
+
   const [input, setInput] = useState("");
+  const [receivingUserId, setReceivingUserId] = useState("");
+  const [placeholder, setPlaceholder] = useState("");
   const { chatId } = useAppStore();
+
+  useEffect(() => {
+    setInput("");
+    const unsub = onSnapshot(doc(db, "conversations", chatId), (doc) => {
+      const data = doc.data();
+      if (!data) {
+        console.log("no conversation found from id: " + chatId);
+        return;
+      }
+      if (data.isDm) {
+        const receivingUser = data.participantIDs.filter(
+          (id) => id !== user.uid
+        )[0];
+        setReceivingUserId(receivingUser);
+        return;
+      }
+      setReceivingUserId("");
+      setPlaceholder("Message " + data.groupName);
+    });
+
+    return unsub;
+  }, [chatId]);
+
+  useEffect(() => {
+    if (!receivingUserId) return;
+    const unsub = onSnapshot(doc(db, "users", receivingUserId), (doc) => {
+      const data = doc.data();
+      if (!data) {
+        console.log("no user found from id: " + receivingUserId);
+        return;
+      }
+      setPlaceholder("Message @" + data.displayName);
+    });
+
+    return unsub;
+  }, [receivingUserId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,7 +76,7 @@ export default () => {
         <input
           type="text"
           className="w-full bg-neutral-500 text-base font-normal text-neutral-150 outline-none"
-          placeholder="Message @CAMICSC"
+          placeholder={placeholder}
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
