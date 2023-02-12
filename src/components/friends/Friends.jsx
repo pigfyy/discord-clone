@@ -10,16 +10,7 @@ export default () => {
   return (
     <div className="flex max-h-screen w-full flex-col">
       <Header />
-      {currentPage !== "Add Friend" ? (
-        <div className="my-4">
-          <span className="mx-[30px] text-xs font-semibold uppercase text-neutral-175">
-            {currentPage}
-          </span>
-          <FriendsList />
-        </div>
-      ) : (
-        <AddFriend />
-      )}
+      {currentPage !== "Add Friend" ? <FriendsList /> : <AddFriend />}
     </div>
   );
 };

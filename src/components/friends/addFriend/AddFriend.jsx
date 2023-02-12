@@ -1,7 +1,5 @@
 import AddFriendInput from "./AddFriendInput";
 
-import wumpus from "../../../assets/imgs/wumpusWaitingOnFriends.svg";
-
 export default () => {
   return (
     <>
@@ -18,7 +16,10 @@ export default () => {
       </header>
       <main className="flex h-full flex-col items-center justify-center gap-12">
         <div>
-          <img src={wumpus} alt="" />
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/discord-clone-cae29.appspot.com/o/friendsListWumpus%2Fadd%20friend.png?alt=media&token=1b5c1690-87e0-47a6-90a9-68eb4d7ea8ba"
+            alt=""
+          />
         </div>
         <span className="text-base font-normal leading-5 text-neutral-200">
           Wumpus is waiting on friends. You don't have to though!
