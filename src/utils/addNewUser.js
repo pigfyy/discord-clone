@@ -40,12 +40,12 @@ export default async () => {
     displayName: user.displayName,
     photoURL: user.photoURL,
     tag,
-    status: "online",
+    status: "Online",
   });
   await setDoc(
-    doc(db, "users", user.uid, "conversations", "IDYaemPvaj0csOlukJGP"),
+    doc(db, "users", user.uid, "conversations", "72S9NvgsxEN15usrGE0x"),
     {
-      conversationId: "IDYaemPvaj0csOlukJGP",
+      conversationId: "72S9NvgsxEN15usrGE0x",
     }
   );
 };

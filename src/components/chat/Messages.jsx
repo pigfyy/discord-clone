@@ -114,7 +114,7 @@ export default () => {
         if (date.getTime() - prevDate.getTime() > 300000) {
           return true;
         }
-        if (prevMessage.name === message.name) {
+        if (prevMessage.userId === message.userId) {
           return false;
         }
       }

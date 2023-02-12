@@ -5,7 +5,7 @@ import { useConversationsStore } from "../../store.js";
 
 import { db, auth } from "../../firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { collection, query, onSnapshot, doc, where } from "firebase/firestore";
+import { collection, query, onSnapshot } from "firebase/firestore";
 
 export default () => {
   const [user] = useAuthState(auth);
@@ -19,9 +19,9 @@ export default () => {
 
   // grabs all users conversation ids
   useEffect(() => {
-    const conversationIds = [];
     const q1 = query(collection(db, `users/${user.uid}/conversations`));
     const unsubscribe = onSnapshot(q1, (querySnapshot) => {
+      const conversationIds = [];
       querySnapshot.forEach((doc) => {
         conversationIds.push(doc.id.replace(/\s/g, ""));
       });
@@ -35,14 +35,12 @@ export default () => {
 
   // grabs all users conversations data from ids
   useEffect(() => {
-    const q = query(
-      collection(db, "conversations"),
-      where("participantIDs", "array-contains-any", [user.uid, "everyone"])
-    );
+    const q = query(collection(db, "conversations"));
     const unsub = onSnapshot(q, (querySnapshot) => {
       const conversationsData = [];
       querySnapshot.forEach((doc) => {
-        conversationsData.push({ ...doc.data(), id: doc.id });
+        if (userConversationIds.includes(doc.id))
+          conversationsData.push({ ...doc.data(), id: doc.id });
       });
       setUserConversationsData(conversationsData);
     });
