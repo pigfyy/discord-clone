@@ -2,39 +2,21 @@ import Buttons from "./Buttons";
 
 import fetchConversationId from "../../../utils/fetchConversationId";
 
-import { useEffect, useState } from "react";
 import { useFriendsStore, useAppStore } from "../../../store";
 
-import { db, auth } from "../../../firebase";
-import { onSnapshot, doc } from "firebase/firestore";
+import { auth } from "../../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 export default (props) => {
   const [user] = useAuthState(auth);
 
-  const [data, setData] = useState({ name: "", pfp: "", status: "" });
-  const [isShow, setIsShow] = useState(true);
+  const data = props.friendData;
+
   const { currentPage } = useFriendsStore();
   const { setCurrentSection, setChatId } = useAppStore();
 
-  const friendId = props.friendId.split(" ")[0];
-  const pendingStatus = props.friendId.split(" ")[1];
-
-  useEffect(() => {
-    const unsub = onSnapshot(doc(db, "users", friendId), (doc) => {
-      currentPage === "Online" && doc.data().status !== "Online"
-        ? setIsShow(false)
-        : setIsShow(true);
-      setData({
-        name: doc.data().displayName,
-        pfp: doc.data().photoURL,
-        status: doc.data().status,
-        id: doc.id,
-      });
-    });
-
-    return unsub;
-  }, [currentPage]);
+  const id = data.id.split(" ")[0];
+  const pendingStatus = data.id.split(" ")[1];
 
   const handleClick = async () => {
     if (currentPage === "Online" || currentPage === "All") {
@@ -44,8 +26,6 @@ export default (props) => {
       setCurrentSection("chat");
     }
   };
-
-  if (!isShow) return null;
 
   return (
     <li
@@ -59,7 +39,7 @@ export default (props) => {
           </div>
           <div className="flex flex-col text-left">
             <span className="text-base font-semibold leading-[17.6px] text-neutral-100">
-              {data.name}
+              {data.displayName}
             </span>
             <span className="text-[13px] font-medium leading-5 text-neutral-175">
               {(() => {
@@ -74,7 +54,7 @@ export default (props) => {
             </span>
           </div>
         </div>
-        <Buttons pending={pendingStatus} id={data.id} key={data.id} />
+        <Buttons pending={pendingStatus} id={id} key={data.id} />
       </button>
     </li>
   );

@@ -13,28 +13,26 @@ export default async () => {
   const auth = getAuth();
   const user = auth.currentUser;
 
+  // creates an original tag for the user
   const existingTags = [];
 
-  const q = query(
-    collection(db, "users"),
-    where("displayName", "==", user.displayName)
+  const querySnapshot = await getDocs(
+    query(collection(db, "users"), where("displayName", "==", user.displayName))
   );
 
-  const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     existingTags.push(doc.data().tag);
   });
 
-  const generateUniqueNumber = (arr) => {
+  const tag = (() => {
     let number = Math.floor(Math.random() * 9999) + 1;
-    while (arr.includes(number)) {
+    while (existingTags.includes(number)) {
       number = Math.floor(Math.random() * 9999) + 1;
     }
     return number.toString().padStart(4, "0");
-  };
+  })();
 
-  const tag = generateUniqueNumber(existingTags);
-
+  // creates a new user in the database, along with a conversation in all chat
   await setDoc(doc(db, "users", user.uid), {
     uid: user.uid,
     displayName: user.displayName,
