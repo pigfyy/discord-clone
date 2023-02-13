@@ -6,6 +6,7 @@ import {
   where,
   setDoc,
   doc,
+  Timestamp,
 } from "firebase/firestore";
 import { db } from "../firebase";
 
@@ -33,6 +34,7 @@ export default async (id1, id2) => {
       groupPfp: null,
       isDm: true,
       participantIDs: [id1, id2],
+      lastMsgTimestamp: Timestamp.now(),
     });
     await setDoc(doc(db, "users", id1, "conversations", docRef.id), {
       conversationId: docRef.id,

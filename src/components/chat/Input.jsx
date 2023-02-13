@@ -9,6 +9,7 @@ import {
   doc,
   onSnapshot,
   Timestamp,
+  setDoc,
 } from "firebase/firestore";
 
 export default () => {
@@ -68,6 +69,13 @@ export default () => {
       timestamp: Timestamp.now(),
       userId: uid,
     });
+    await setDoc(
+      doc(db, "conversations", chatId),
+      {
+        lastMsgTimestamp: Timestamp.now(),
+      },
+      { merge: true }
+    );
   };
 
   return (

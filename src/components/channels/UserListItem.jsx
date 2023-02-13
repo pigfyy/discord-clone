@@ -8,10 +8,11 @@ import { doc, onSnapshot } from "firebase/firestore";
 export default (props) => {
   const [user] = useAuthState(auth);
 
+  const { chatId, setCurrentSection, setChatId } = useAppStore();
   const [data, setData] = useState({ name: "", pfp: "" });
-  const { setCurrentSection, setChatId } = useAppStore();
 
   const { groupName, groupPfp, isDm, participantIDs, id } = props.data;
+  const isSelected = chatId === id;
 
   useEffect(() => {
     let unsub;
@@ -35,7 +36,7 @@ export default (props) => {
     <li className="px-1.5">
       <button
         className={`flex w-full items-center gap-3 rounded-[4px] p-1.5 ${
-          false ? "bg-neutral-600" : "group hover:bg-neutral-600"
+          isSelected ? "bg-neutral-600" : "group hover:bg-neutral-600"
         }`}
         onClick={() => {
           setCurrentSection("chat");
@@ -47,7 +48,7 @@ export default (props) => {
         </div>
         <span
           className={`text-base font-medium leading-5 ${
-            false
+            isSelected
               ? "text-neutral-100"
               : "text-neutral-300 group-hover:text-neutral-150"
           }`}

@@ -5,7 +5,7 @@ import { useConversationsStore } from "../../store.js";
 
 import { db, auth } from "../../firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { collection, query, onSnapshot } from "firebase/firestore";
+import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
 
 export default () => {
   const [user] = useAuthState(auth);
@@ -35,7 +35,10 @@ export default () => {
 
   // grabs all users conversations data from ids
   useEffect(() => {
-    const q = query(collection(db, "conversations"));
+    const q = query(
+      collection(db, "conversations"),
+      orderBy("lastMsgTimestamp", "desc")
+    );
     const unsub = onSnapshot(q, (querySnapshot) => {
       const conversationsData = [];
       querySnapshot.forEach((doc) => {
