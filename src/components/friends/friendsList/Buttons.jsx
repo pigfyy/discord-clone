@@ -30,6 +30,7 @@ export default (props) => {
   })();
 
   const handleClick = (button, e) => {
+    console.log("clicked");
     const btn = (() => {
       const parts = button.split("/");
       return parts[parts.length - 1].split(".")[0];
