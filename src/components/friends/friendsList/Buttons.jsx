@@ -23,20 +23,13 @@ export default (props) => {
 
   const list = (() => {
     if (currentPage === "Online" || currentPage === "All")
-      return [chatBox, ellipsis];
-    if (currentPage === "Blocked") return [unblock];
-    if (props.pending === "pending-in") return [checkmark, xmark];
-    return [xmark];
+      return ["chatbox", "ellipsis"];
+    if (currentPage === "Blocked") return ["unblock"];
+    if (props.pending === "pending-in") return ["checkmark", "xmark"];
+    return ["xmark"];
   })();
 
   const handleClick = (button, e) => {
-    const btn = (() => {
-      const parts = button.split("/");
-      return parts[parts.length - 1].split(".")[0];
-    })();
-
-    console.log(btn);
-
     e.stopPropagation();
 
     const handleCheckmark = () => {
@@ -50,21 +43,20 @@ export default (props) => {
     };
 
     const handleEllipsis = () => {
-      console.log("ellipsis ran");
       setMenuOpen(true);
       setMenuXY(e.clientX, e.clientY);
       setMenuType("friendsMenuEllipsis");
     };
 
-    if (btn === "checkmark") {
+    if (button === "checkmark") {
       handleCheckmark();
       return;
     }
-    if (btn === "xmark") {
+    if (button === "xmark") {
       handleXmark();
       return;
     }
-    if (btn === "ellipsis") {
+    if (button === "ellipsis") {
       handleEllipsis();
       return;
     }
@@ -73,16 +65,28 @@ export default (props) => {
   return (
     <div className="flex gap-2">
       {list.map((button) => {
+        const imgLink = (() => {
+          if (button === "chatbox")
+            return "https://firebasestorage.googleapis.com/v0/b/discord-clone-cae29.appspot.com/o/icons%2Fchatbox.svg?alt=media&token=c1db919d-5c8a-4450-b192-62f8b2d3341c";
+          if (button === "ellipsis")
+            return "https://firebasestorage.googleapis.com/v0/b/discord-clone-cae29.appspot.com/o/icons%2Fellipsis.svg?alt=media&token=aef3a29c-771f-4c97-8c37-62d908fc4edf";
+          if (button === "checkmark")
+            return "https://firebasestorage.googleapis.com/v0/b/discord-clone-cae29.appspot.com/o/icons%2Fcheckmark.svg?alt=media&token=ac60cea7-4820-4e5a-b12f-4fc9a190c22a";
+          if (button === "xmark")
+            return "https://firebasestorage.googleapis.com/v0/b/discord-clone-cae29.appspot.com/o/icons%2Fxmark.svg?alt=media&token=29bd15c3-2aed-49be-afcd-ad7fe66cff09";
+          if (button === "unblock")
+            return "https://firebasestorage.googleapis.com/v0/b/discord-clone-cae29.appspot.com/o/icons%2Funblock.svg?alt=media&token=9e9685aa-0423-4bc0-9120-c2ff0a97caf0";
+        })();
         return (
           <div
             className="grid h-9 w-9 place-items-center rounded-full bg-neutral-800 active:!bg-neutral-490 group-hover:bg-neutral-900"
             onClick={(e) => {
-              button !== chatBox && handleClick(button, e);
+              button !== "chatbox" && handleClick(button, e);
             }}
             key={crypto.randomUUID()}
-            does-open-menu={button === ellipsis ? "true" : "false"}
+            does-open-menu={button === "ellipsis" ? "true" : "false"}
           >
-            <img src={button} alt="" />
+            <img src={imgLink} alt="" />
           </div>
         );
       })}
