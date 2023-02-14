@@ -30,7 +30,6 @@ export default (props) => {
   })();
 
   const handleClick = (button, e) => {
-    console.log("clicked");
     const btn = (() => {
       const parts = button.split("/");
       return parts[parts.length - 1].split(".")[0];
@@ -49,6 +48,7 @@ export default (props) => {
     };
 
     const handleEllipsis = () => {
+      console.log("ellipsis ran");
       setMenuOpen(true);
       setMenuXY(e.clientX, e.clientY);
       setMenuType("friendsMenuEllipsis");
