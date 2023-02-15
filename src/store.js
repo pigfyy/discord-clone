@@ -25,10 +25,12 @@ const useMenuStore = create(
     menuOpen: false,
     menuXY: { x: 0, y: 0 },
     menuType: "",
+    menuAdditionalData: {},
     setMenuOpen: () => set(() => ({ menuOpen: true })),
     setMenuClosed: () => set(() => ({ menuOpen: false })),
     setMenuXY: (x, y) => set(() => ({ menuXY: { x, y } })),
     setMenuType: (type) => set(() => ({ menuType: type })),
+    setMenuAdditionalData: (data) => set(() => ({ menuAdditionalData: data })),
   }))
 );
 

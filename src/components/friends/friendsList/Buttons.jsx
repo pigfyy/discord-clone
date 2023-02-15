@@ -19,7 +19,8 @@ export default (props) => {
   const [user] = useAuthState(auth);
 
   const { currentPage } = useFriendsStore();
-  const { setMenuOpen, setMenuXY, setMenuType } = useMenuStore();
+  const { setMenuOpen, setMenuXY, setMenuType, setMenuAdditionalData } =
+    useMenuStore();
 
   const list = (() => {
     if (currentPage === "Online" || currentPage === "All")
@@ -46,6 +47,7 @@ export default (props) => {
       setMenuOpen(true);
       setMenuXY(e.clientX, e.clientY);
       setMenuType("friendsMenuEllipsis");
+      setMenuAdditionalData({ id1: user.uid, id2: props.id });
     };
 
     if (button === "checkmark") {
@@ -84,7 +86,7 @@ export default (props) => {
               button !== "chatbox" && handleClick(button, e);
             }}
             key={crypto.randomUUID()}
-            does-open-menu={button === "ellipsis" ? "true" : "false"}
+            dont-close-button={button === "ellipsis" ? "true" : "false"}
           >
             <img src={imgLink} alt="" />
           </div>
